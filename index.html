@@ -119,10 +119,10 @@ td input[type=text]{width:260px}
 </div>
 <script src="js/xlsx.full.min.js"></script>
 <script>
-/* ============ CONFIGURAÇÃO (pode editar) ============ */
+/* ============ CONFIGURAÇÃO ============ */
 const BASE_URL='dados/BASE_PERDAS.xlsx';      // base (Excel)
-const METAS_URL='dados/METAS.csv';            // metas por seccional (edite este arquivo)
-const TRAT_URL='dados/tratativas.csv';        // tratativas compartilhadas (opcional)
+const METAS_URL='dados/METAS.csv';            // metas por seccional 
+const TRAT_URL='dados/tratativas.csv';        // tratativas compartilhadas
 const OPT=['PENDENTE','NÃO REFATURA','ENVIADO PARA REFATURAMENTO']; // opções da coluna TRATATIVA
 const RECUPERA_PADRAO=['ENVIADO PARA REFATURAMENTO'];               // tratativas que abatem a perda na Previsão
 const GG='GESTÃO',GM='MEDIÇÃO';
@@ -177,7 +177,7 @@ async function loadBase(silent){
     mergeTrat();S.ok=true;render();
   }catch(e){
     $('#meta').textContent='Erro ao carregar a base: '+(e.message||e);
-    if(!silent)$('#app').innerHTML='<div class="note">Não foi possível carregar <b>'+BASE_URL+'</b>. Publique a pasta em um servidor web (GitHub Pages, Netlify, IIS…) ou use o <b>iniciar_local.bat</b>. Abrir o index.html com duplo clique não funciona.</div>';
+    if(!silent)$('#app').innerHTML='<div class="note">Não foi possível carregar <b>'+BASE_URL+'</b>. </div>';
   }
 }
 function saveTrat(r,patch){
