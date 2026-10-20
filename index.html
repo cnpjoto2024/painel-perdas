@@ -196,7 +196,7 @@ function exportAgent(a){
   dl('APONTAMENTOS_'+a.replace(/[^A-Za-z0-9]+/g,'_')+'.csv',toCsv(rs,S.cols));
 }
 
-/* ---------- filtros / helpers ---------- */
+/* ---------- filtrosS / helpers ---------- */
 function rowsFor(tab){
   let r=S.rows;
   if(S.sec)r=r.filter(x=>x.SECCIONAL===S.sec);
