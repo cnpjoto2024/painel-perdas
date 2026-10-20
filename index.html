@@ -149,7 +149,7 @@ const sum=a=>a.reduce((s,x)=>s+P(x),0);
 const num=v=>{if(v==null||v==='')return null;let s=String(v).trim().replace(/\s/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=parseFloat(s);return isNaN(n)?null:n};
 const meta=(s,t)=>{const m=S.metas[s]||{};if(t==='T')return m.T!=null?m.T:(m.G||0)+(m.M||0);return m[t]||0};
 
-/* ---------- dadoss ---------- */
+/* ---------- dadosss ---------- */
 function parseCsv(t){
   t=t.replace(/^\ufeff/,'');const sep=t.split('\n')[0].includes(';')?';':',';const out=[];let row=[],f='',q=false;
   for(let i=0;i<t.length;i++){const c=t[i];
