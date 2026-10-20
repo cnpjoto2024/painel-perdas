@@ -119,10 +119,10 @@ td input[type=text]{width:260px}
 </div>
 <script src="js/xlsx.full.min.js"></script>
 <script>
-/* ============ CONFIGURAÇÃO ============ */
+/* ============ CONFIGURAÇÃO (pode editar) ============ */
 const BASE_URL='dados/BASE_PERDAS.xlsx';      // base (Excel)
-const METAS_URL='';            // metas por seccional 
-const TRAT_URL='dados/tratativas.csv';        // tratativas compartilhadas
+const METAS_URL='dados/METAS.csv';            // metas por seccional (edite este arquivo)
+const TRAT_URL='dados/tratativas.csv';        // tratativas compartilhadas (opcional)
 const OPT=['PENDENTE','NÃO REFATURA','ENVIADO PARA REFATURAMENTO']; // opções da coluna TRATATIVA
 const RECUPERA_PADRAO=['ENVIADO PARA REFATURAMENTO'];               // tratativas que abatem a perda na Previsão
 const GG='GESTÃO',GM='MEDIÇÃO';
@@ -149,7 +149,7 @@ const sum=a=>a.reduce((s,x)=>s+P(x),0);
 const num=v=>{if(v==null||v==='')return null;let s=String(v).trim().replace(/\s/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=parseFloat(s);return isNaN(n)?null:n};
 const meta=(s,t)=>{const m=S.metas[s]||{};if(t==='T')return m.T!=null?m.T:(m.G||0)+(m.M||0);return m[t]||0};
 
-/* ---------- dadosS ---------- */
+/* ---------- dados ---------- */
 function parseCsv(t){
   t=t.replace(/^\ufeff/,'');const sep=t.split('\n')[0].includes(';')?';':',';const out=[];let row=[],f='',q=false;
   for(let i=0;i<t.length;i++){const c=t[i];
@@ -177,7 +177,7 @@ async function loadBase(silent){
     mergeTrat();S.ok=true;render();
   }catch(e){
     $('#meta').textContent='Erro ao carregar a base: '+(e.message||e);
-    if(!silent)$('#app').innerHTML='<div class="note">Não foi possível carregar <b>'+BASE_URL+'</b>. </div>';
+    if(!silent)$('#app').innerHTML='<div class="note">Não foi possível carregar <b>'+BASE_URL+'</b>. Publique a pasta em um servidor web (GitHub Pages, Netlify, IIS…) ou use o <b>iniciar_local.bat</b>. Abrir o index.html com duplo clique não funciona.</div>';
   }
 }
 function saveTrat(r,patch){
@@ -196,7 +196,7 @@ function exportAgent(a){
   dl('APONTAMENTOS_'+a.replace(/[^A-Za-z0-9]+/g,'_')+'.csv',toCsv(rs,S.cols));
 }
 
-/* ---------- filtross / helpers ---------- */
+/* ---------- filtros / helpers ---------- */
 function rowsFor(tab){
   let r=S.rows;
   if(S.sec)r=r.filter(x=>x.SECCIONAL===S.sec);
@@ -215,7 +215,7 @@ const dv=(v,m)=>{const d=v-m;return `<td class="n ${d>0?'up':'dn'}">${d>0?'▲ +
 const trip=(v,m)=>`<td class="n sep"><b>${N(v)}</b></td><td class="n me">${N(m)}</td>${dv(v,m)}`;
 const th3=l=>`<th class="c" colspan="3">${l}</th>`;
 const sub3=l=>`<th class="n">${l}</th><th class="n">Meta</th><th class="n">Desvio</th>`;
-const DEVHINT='<div class="hint">Desvio = realizado − meta. Quanto menor, melhor: <span class="dn">▼ verde</span> está dentro/abaixo da meta, <span class="up">▲ vermelho</span> está acima.<b></b>.</div>';
+const DEVHINT='<div class="hint">Desvio = realizado − meta. Quanto menor, melhor: <span class="dn">▼ verde</span> está dentro/abaixo da meta, <span class="up">▲ vermelho</span> está acima. As metas ficam em <b>dados/METAS.csv</b>.</div>';
 
 /* ---------- visões ---------- */
 const V={};
@@ -286,8 +286,8 @@ V.v6=()=>{
   <div class="hint">Exibindo ${R.length} de ${r.length}. Regra: ANT1 diferente do código (3 primeiros caracteres) do APONTAMENTO = trocou; igual = manteve.</div>`;
 };
 V.v7=()=>kpis([['Registros',N(S.rows.length),'w'],['Referência',S.rows[0]?S.rows[0].REFERENCIA:'–'],['Base atualizada em',S.meta?S.meta.at.toLocaleString('pt-BR'):'–'],['Seccionais',uniq(S.rows.map(x=>x.SECCIONAL)).length,'g']])+
- `<div class="card" style="padding:18px"><p>O site lê CNL PERDAS e metas por seccional. O site recarrega sozinho em até 5 minutos.</p><button class="btn" id="csv2">⬇ Exportar base completa (CSV)</button>
- <hr style="border:0;border-top:1px solid var(--bd);margin:18px 0"><p><b>Tratativas</b> ficam salvas neste navegador. Exporte para compartilhar!</b>.</p>
+ `<div class="card" style="padding:18px"><p>O site lê <b>dados/BASE_PERDAS.xlsx</b> (base) e <b>dados/METAS.csv</b> (metas por seccional). Para atualizar, substitua os arquivos no servidor — o site recarrega sozinho em até 5 minutos. Ninguém altera a base pela tela.</p><button class="btn" id="csv2">⬇ Exportar base completa (CSV)</button>
+ <hr style="border:0;border-top:1px solid var(--bd);margin:18px 0"><p><b>Tratativas</b> ficam salvas neste navegador. Exporte para compartilhar e publique o arquivo como <b>dados/tratativas.csv</b>.</p>
  <button class="btn" id="tx">⬇ Exportar tratativas</button> <label class="btn" style="display:inline-flex;flex-direction:row;text-transform:none;letter-spacing:0;font-size:14px;color:var(--tx)">⬆ Importar tratativas<input type="file" id="ti" accept=".csv" hidden></label></div>`;
 
 /* ---------- render / eventos ---------- */
