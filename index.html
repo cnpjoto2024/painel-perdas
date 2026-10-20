@@ -215,7 +215,7 @@ const dv=(v,m)=>{const d=v-m;return `<td class="n ${d>0?'up':'dn'}">${d>0?'▲ +
 const trip=(v,m)=>`<td class="n sep"><b>${N(v)}</b></td><td class="n me">${N(m)}</td>${dv(v,m)}`;
 const th3=l=>`<th class="c" colspan="3">${l}</th>`;
 const sub3=l=>`<th class="n">${l}</th><th class="n">Meta</th><th class="n">Desvio</th>`;
-const DEVHINT='<div class="hint">Desvio = realizado − meta. Quanto menor, melhor: <span class="dn">▼ verde</span> está dentro/abaixo da meta, <span class="up">▲ vermelho</span> está acima. As metas ficam em <b>dados/METAS.csv</b>.</div>';
+const DEVHINT='<div class="hint">Desvio = realizado − meta. Quanto menor, melhor: <span class="dn">▼ verde</span> está dentro/abaixo da meta, <span class="up">▲ vermelho</span> está acima.<b></b>.</div>';
 
 /* ---------- visões ---------- */
 const V={};
