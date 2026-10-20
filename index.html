@@ -121,7 +121,7 @@ td input[type=text]{width:260px}
 <script>
 /* ============ CONFIGURAÇÃO ============ */
 const BASE_URL='dados/BASE_PERDAS.xlsx';      // base (Excel)
-const METAS_URL='dados/METAS.csv';            // metas por seccional 
+const METAS_URL='';            // metas por seccional 
 const TRAT_URL='dados/tratativas.csv';        // tratativas compartilhadas
 const OPT=['PENDENTE','NÃO REFATURA','ENVIADO PARA REFATURAMENTO']; // opções da coluna TRATATIVA
 const RECUPERA_PADRAO=['ENVIADO PARA REFATURAMENTO'];               // tratativas que abatem a perda na Previsão
@@ -286,8 +286,8 @@ V.v6=()=>{
   <div class="hint">Exibindo ${R.length} de ${r.length}. Regra: ANT1 diferente do código (3 primeiros caracteres) do APONTAMENTO = trocou; igual = manteve.</div>`;
 };
 V.v7=()=>kpis([['Registros',N(S.rows.length),'w'],['Referência',S.rows[0]?S.rows[0].REFERENCIA:'–'],['Base atualizada em',S.meta?S.meta.at.toLocaleString('pt-BR'):'–'],['Seccionais',uniq(S.rows.map(x=>x.SECCIONAL)).length,'g']])+
- `<div class="card" style="padding:18px"><p>O site lê <b>dados/BASE_PERDAS.xlsx</b> (base) e <b>dados/METAS.csv</b> (metas por seccional). Para atualizar, substitua os arquivos no servidor — o site recarrega sozinho em até 5 minutos. Ninguém altera a base pela tela.</p><button class="btn" id="csv2">⬇ Exportar base completa (CSV)</button>
- <hr style="border:0;border-top:1px solid var(--bd);margin:18px 0"><p><b>Tratativas</b> ficam salvas neste navegador. Exporte para compartilhar e publique o arquivo como <b>dados/tratativas.csv</b>.</p>
+ `<div class="card" style="padding:18px"><p>O site lê CNL PERDAS e metas por seccional. O site recarrega sozinho em até 5 minutos.</p><button class="btn" id="csv2">⬇ Exportar base completa (CSV)</button>
+ <hr style="border:0;border-top:1px solid var(--bd);margin:18px 0"><p><b>Tratativas</b> ficam salvas neste navegador. Exporte para compartilhar!</b>.</p>
  <button class="btn" id="tx">⬇ Exportar tratativas</button> <label class="btn" style="display:inline-flex;flex-direction:row;text-transform:none;letter-spacing:0;font-size:14px;color:var(--tx)">⬆ Importar tratativas<input type="file" id="ti" accept=".csv" hidden></label></div>`;
 
 /* ---------- render / eventos ---------- */
